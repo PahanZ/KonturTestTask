@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:700');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#app {
+    background-color: #1c722f;
+    height: 100vh;
+    color: floralwhite;
+    font-family: 'Open Sans', sans-serif;
+    display: grid;
+    .page {
+        display: grid;
+        justify-items: center;
+        grid-gap: 20px;
+        align-self: center;
+        .titleImg {
+            width: 503px;
+            height: 262px;
+        }
+        .section_head {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, max-content);
+            justify-content: space-around;
+            .reset {
+                width: 102px;
+                height: 19px;
+                background-color: transparent;
+                border: none;
+                color: floralwhite;
+                text-decoration: none;
+                font-size: small;
+            }
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-gap: 15px;
+            .card {
+                width: 102px;
+            }
+        }
+    }
+    .link {
+        width: 144px;
+        height: 42px;
+        opacity: 0.85;
+        background: #FFFFFF;
+        border-radius: 4px;
+        font-size: 16px;
+        color: #1C7430;
+        letter-spacing: 0;
+        text-decoration: none;
+        text-align: center;
+        padding: 10px 20px;
+    }
+}
