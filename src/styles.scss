@@ -40,8 +40,24 @@
             grid-template-columns: repeat(6, 1fr);
             grid-template-rows: repeat(3, 1fr);
             grid-gap: 15px;
-            .card {
-                width: 102px;
+            .wrapFoCard {
+                position: relative;
+                .card {
+                    width: 102px;
+                    transition: .5s;
+                    position: relative;
+                    z-index: 1;
+                }
+                .cardBack {
+                    width: 102px;
+                    height: 142px;
+                    position: absolute;
+                    left: 0;
+                    z-index: 0;
+                }
+            }
+            .checked {
+                opacity: 0;
             }
         }
     }
