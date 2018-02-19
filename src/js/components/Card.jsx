@@ -33,26 +33,27 @@ export default class Cards extends React.Component {
     this.cards = [];
   }
   showHide(e) {
-    const event = e;
     this.count += 1;
-    event.currentTarget.style.opacity = '1';
-    this.cards = [...this.cards, event.currentTarget];
-    if (this.count === 2) {
+    e.currentTarget.style.opacity = '1';
+    this.cards = [...this.cards, e.currentTarget];
+    if (this.count >= 2) {
       if (this.cards[0].src === this.cards[1].src && this.cards[0] !== this.cards[1]) {
-        this.cards.forEach((element) => {
-          const el = element;
-          const promiseRight = new Promise((resolve) => {
+        const promiseRight = new Promise((resolve) => {
+          this.cards.forEach((element) => {
             setTimeout(() => {
-              el.parentNode.classList.add('checked');
+              element.parentNode.classList.add('checked');
               resolve();
             }, 1000);
           });
-          promiseRight
-            .then(() => checkingWrong())
-            .then((result) => {
-              this.props.setRight(result * 42);
-            });
         });
+        promiseRight
+          .then(() => {
+            console.log(checkingWrong());// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return checkingWrong();
+          })
+          .then((result) => {
+            this.props.setRight(result * 42);
+          });
       } else {
         const promiseWrong = new Promise((resolve) => {
           setTimeout(() => {
@@ -72,7 +73,7 @@ export default class Cards extends React.Component {
   render() {
     let images = src.map((element, i) => (
       <div className="wrapFoCard" key={String(i)}>
-        {/*eslint-disable */}
+        {/* eslint-disable */}
         <img
           src={element}
           className="card"
