@@ -8,4 +8,14 @@ const setWrong = data => ({
   payload: data,
 });
 
-export { setRight, setWrong };
+const setFirstCard = data => ({
+  type: 'setFirstCard',
+  payload: data,
+});
+
+const setSecondCard = data => ({
+  type: 'setSecondCard',
+  payload: data,
+});
+
+export { setRight, setWrong, setFirstCard, setSecondCard };

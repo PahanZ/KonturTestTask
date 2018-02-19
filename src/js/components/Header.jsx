@@ -6,10 +6,10 @@ export default props => (
     <button
       className="reset"
       onClick={() => {
-                cleaning(document.getElementsByClassName('wrapFoCard'), '1');
-                cleaning(document.getElementsByClassName('card'), '1');
-                // this.forceUpdate();
-            }}
+              cleaning(document.getElementsByClassName('wrapFoCard'), '1');
+              cleaning(document.getElementsByClassName('card'), '1');
+              window.location.reload();
+          }}
     >Начать заново
     </button>
     <p>Очки: {props.score}</p>
