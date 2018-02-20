@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import check from './check';
-import setFirstCard from './setFirstCard';
-import setSecondCard from './setSecondCard';
+import scores from './scores';
+import cards from './cards';
+import statuses from './statuses';
+import selectedCards from './selectedCards';
 
 export default combineReducers({
-  check, setFirstCard, setSecondCard,
+  scores, cards, statuses, selectedCards,
 });

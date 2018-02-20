@@ -8,7 +8,7 @@ class Page2 extends React.Component {
     // console.log(this.props);
     return (
       <div className="page">
-        <Header score={this.props.check} />
+        <Header score={this.props.scores} />
         <section className="cards">
           <Cards
             showHide={this.showHide}
@@ -24,7 +24,7 @@ class Page2 extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  check: state.check,
+  scores: state.scores,
 });
 
 export default connect(mapStateToProps)(Page2);

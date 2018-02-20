@@ -8,14 +8,42 @@ const setWrong = data => ({
   payload: data,
 });
 
-const setFirstCard = data => ({
-  type: 'setFirstCard',
+const setCardsList = data => ({
+  type: 'cards',
   payload: data,
 });
 
-const setSecondCard = data => ({
-  type: 'setSecondCard',
+const setStatuses = data => ({
+  type: 'setStatuses',
   payload: data,
 });
 
-export { setRight, setWrong, setFirstCard, setSecondCard };
+const setStatusTrue = data => ({
+  type: 'setTrue',
+  payload: data,
+});
+
+const setStatusFalse = data => ({
+  type: 'setFalse',
+  payload: data,
+});
+
+const setSelectedCard = data => ({
+  type: 'selectedCard',
+  payload: data,
+});
+
+const clearSelectedCard = () => ({
+  type: 'clearSelectedCard',
+  payload: [],
+});
+
+export { setRight,
+  setWrong,
+  setCardsList,
+  setStatuses,
+  setStatusTrue,
+  setStatusFalse,
+  setSelectedCard,
+  clearSelectedCard,
+};

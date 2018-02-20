@@ -4,6 +4,7 @@ export default props => (
   <div className="wrapFoCard">
     {/* eslint-disable */}
         <img
+            id={props.id}
             src={props.src}
             className="card"
             alt="card"
