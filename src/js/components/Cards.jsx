@@ -1,12 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import src from '../helpers/images';
-// import cleaning from '../helpers/cleaning';
-import { setRight, setWrong, setCardsList, setStatuses, setStatusTrue, setStatusFalse, setSelectedCard, clearSelectedCard } from '../redux/actions';
+import random from '../helpers/random';
+import choiceImages from '../helpers/choiceImages';
 // import checkingRight from '../helpers/checkingRights';
 // import checkingWrong from '../helpers/checkingWrong';
+import {
+  setRight,
+  setWrong,
+  setCardsList,
+  setStatuses,
+  setStatusTrue,
+  setStatusFalse,
+  setSelectedCard,
+  clearSelectedCard } from '../redux/actions';
 import Card from './Card';
-import renderedImages from '../helpers/renderedImages';
 
 const back = require('../../img/back.jpg');
 
@@ -17,36 +25,29 @@ class Cards extends React.Component {
     this.showHide = this.showHide.bind(this);
   }
   componentDidMount() {
-    this.props.setCardsList(renderedImages(src));
-    this.props.setStatuses(renderedImages(src).map((element) => {
+    this.props.setCardsList(choiceImages(src));
+    this.props.setStatuses(choiceImages(src).map((element) => {
       let el = element;
       el = null;
       return el;
     }));
-    // setTimeout(() => {
-    //   cleaning(document.getElementsByClassName('card'), '0');
-    // }, 5000);
   }
-  // shouldComponentUpdate() {
-  //   return false;
-  // }
-  componentDidUpdate() {
-    // setTimeout(() => {
-    //   cleaning(document.getElementsByClassName('card'), '0');
-    // }, 5000);
+  shouldComponentUpdate(nextState, nextProps) {
+    if (nextState.count !== this.state.count
+    || nextProps.selectedCards !== this.props.selectedCards) { // !!!incorrect
+      return false;
+    }
+    return true;
   }
-  showHide(e) {
+  showHide() {
     this.setState({ count: this.state.count += 1 });
-    this.props.setSelectedCard(e.currentTarget.id);
-    e.currentTarget.style.opacity = '1';
-
-
-    this.props.statuses.forEach((element, i) => {
-      if (i === Number(e.currentTarget.id)) {
-        this.props.setStatusTrue(e.currentTarget.id);// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      }
-    });
-
+    if (this.state.count === 1) {
+      const newStatuses = this.props.statuses.slice();
+      setTimeout(() => {
+        newStatuses[this.props.selectedCards[0]] = 'show';
+        this.props.setStatusTrue(newStatuses);
+      }, 1);
+    }
 
     if (this.state.count === 2) {
       setTimeout(() => {
@@ -57,7 +58,8 @@ class Cards extends React.Component {
       this.props.clearSelectedCard();
       this.setState({ count: 0 });
     }
-    // e.currentTarget.style.opacity = '1';
+
+
     // if (this.state.count === 1) {
     //   this.props.setFirstCard(e.currentTarget);
     // }
@@ -95,9 +97,21 @@ class Cards extends React.Component {
   }
   render() {
     console.log(this.props);
-    return this.props.cardsList.map((element, i) => (
-      <Card key={String(i)} id={i} src={element} back={back} showHide={this.showHide} />
+    let images = this.props.cardsList.map((element, i) => (
+      <Card
+        key={String(i)}
+        id={i}
+        status={this.props.statuses[i]}
+        src={element}
+        back={back}
+        showHide={this.showHide}
+        setSelectedCard={this.props.setSelectedCard}
+      />
     ));
+    images.length = 9;
+    images = [images, ...images];
+    images.sort(random);
+    return images;
   }
 }
 

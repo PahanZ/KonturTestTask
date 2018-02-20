@@ -3,7 +3,7 @@ export default (state = [], action) => {
     case 'setStatuses':
       return action.payload;
     case 'setTrue':
-      return [...state, action.payload];
+      return action.payload;
     case 'setFalse':
       return action.payload;
     default: return state;
