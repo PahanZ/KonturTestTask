@@ -1,22 +1,30 @@
 import React from 'react';
 
-export default (props) => {
-  // console.log(props);
-  return (
-    <div className="wrapFoCard">
-      {/* eslint-disable */}
+const back = require('../../img/back.jpg');
+
+class Card extends React.Component {
+  shouldComponentUpdate() {
+    return true;
+  }
+  render() {
+    // console.log(this.props);
+    return (
+      <div className="wrapFoCard">
+        {/* eslint-disable */}
         <img
-            id={props.id}
-            src={props.src}
-            className={'card' + ' ' + props.status}
-            alt="card"
-            onClick={(event) => {
-              props.setSelectedCard(Number(event.currentTarget.id));
-              props.showHide();
-            }}
+          id={this.props.id}
+          src={this.props.src}
+          className={'card' + ' ' + this.props.status}
+          alt="card"
+          onClick={() => {            
+            this.props.onSelect(this.props.id);
+          }}
         />
         {/* eslint-enable */}
-      <img src={props.back} className="cardBack" alt="back" />
-    </div>
-  );
-};
+        <img src={back} className="cardBack" alt="back" />
+      </div>
+    );
+  }
+}
+
+export default Card;
