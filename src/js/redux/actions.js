@@ -33,9 +33,9 @@ const setSelectedCard = data => ({
   payload: data,
 });
 
-const clearSelectedCard = () => ({
+const clearSelectedCard = data => ({
   type: 'clearSelectedCard',
-  payload: [],
+  payload: data,
 });
 
 export { setRight,

@@ -4,10 +4,19 @@ import Card from './Card';
 
 export default class Cards extends React.Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.cardsList !== this.props.cardsList;
+    if (nextProps.selectedCards !== this.props.selectedCards) {
+      return false;
+    }
+    setTimeout(() => {
+      if (nextProps.statuses !== this.props.statuses) {
+        return false;
+      }
+      return false;
+    }, 3000);
+    return true;
   }
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     let images = this.props.cardsList.map((element, i) => (
       <Card
         key={String(i)}

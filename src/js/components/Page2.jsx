@@ -37,7 +37,7 @@ class Page2 extends React.Component {
           resolve();
         });
         promise.then(() => {
-          this.props.clearSelectedCard();
+          this.props.clearSelectedCard([]);
         });
       }
     }, 1);
@@ -48,11 +48,8 @@ class Page2 extends React.Component {
     this.props.setStatusTrue(newStatuses);
   }
   changeClass(className) {
-    this.props.setStatuses(this.props.cardsList.map((element) => {
-      let el = element;
-      el = className;
-      return el;
-    }));
+    const newStatuses = Array(this.props.cardsList.length).fill(className);
+    this.props.setStatuses(newStatuses);
   }
   render() {
     // console.log(this.props);
@@ -62,6 +59,7 @@ class Page2 extends React.Component {
         <section className="cards">
           <Cards
             cardsList={this.props.cardsList}
+            selectedCards={this.props.selectedCards}
             statuses={this.props.statuses}
             onSelect={this.onSelect}
             // setRight={this.props.setRight}

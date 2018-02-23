@@ -3,7 +3,10 @@ import React from 'react';
 const back = require('../../img/back.jpg');
 
 class Card extends React.Component {
-  shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.statuses !== this.props.statuses) {
+      return true;
+    }
     return true;
   }
   render() {
