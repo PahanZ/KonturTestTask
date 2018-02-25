@@ -38,6 +38,16 @@ const clearSelectedCard = data => ({
   payload: data,
 });
 
+const setBack = data => ({
+  type: 'setBack',
+  payload: data,
+});
+
+const resetScores = data => ({
+  type: 'resetScores',
+  payload: data,
+});
+
 export { setRight,
   setWrong,
   setCardsList,
@@ -46,4 +56,6 @@ export { setRight,
   setStatusFalse,
   setSelectedCard,
   clearSelectedCard,
+  setBack,
+  resetScores,
 };

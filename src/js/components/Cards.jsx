@@ -1,34 +1,19 @@
 import React from 'react';
-import random from '../helpers/random';
 import Card from './Card';
 
 export default class Cards extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.selectedCards !== this.props.selectedCards) {
-      return false;
-    }
-    setTimeout(() => {
-      if (nextProps.statuses !== this.props.statuses) {
-        return false;
-      }
-      return false;
-    }, 3000);
-    return true;
-  }
   render() {
-    console.log(this.props);
-    let images = this.props.cardsList.map((element, i) => (
+    // console.log(this.props);
+    return this.props.cardsList.map((element, i) => (
       <Card
         key={String(i)}
-        id={i}
+        index={i}
+        id={element.index}
         status={this.props.statuses[i]}
-        src={element}
+        src={element.src}
         onSelect={this.props.onSelect}
+        back={this.props.back[i]}
       />
     ));
-    images.length = 9;
-    images = [images, ...images];
-    images.sort(random);
-    return images;
   }
 }

@@ -1,4 +1,4 @@
-export default () => {
-  const rights = Array.prototype.map.call(document.getElementsByClassName('checked'), element => element);
-  return rights.length;
+export default (prop) => {
+  const rights = prop.filter(element => element === 'show');
+  return rights.length * 42;
 };

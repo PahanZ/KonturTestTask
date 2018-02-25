@@ -5,5 +5,8 @@ export default (state = 0, action) => {
   if (action.type === 'setWrong') {
     return state - action.payload;
   }
+  if (action.type === 'resetScores') {
+    return action.payload;
+  }
   return state;
 };

@@ -5,7 +5,7 @@ export default props => (
     <button
       className="reset"
       onClick={() => {
-              window.location.reload();
+              props.reset();
           }}
     >Начать заново
     </button>
