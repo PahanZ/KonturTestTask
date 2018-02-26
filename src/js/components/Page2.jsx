@@ -33,25 +33,18 @@ class Page2 extends React.Component {
         this.setNewStatuses(0);
       }
       if (this.props.selectedCards.length === 2) {
-        const promise = new Promise((resolve) => {
-          this.setNewStatuses(1);
-          resolve();
-        });
-        promise.then(() => {
-          if (this.props.selectedCards[0].id === this.props.selectedCards[1].id
+        this.setNewStatuses(1);
+        if (this.props.selectedCards[0].id === this.props.selectedCards[1].id
           && this.props.selectedCards[0].number !== this.props.selectedCards[1].number) {
-            this.props.setRight(checkingWrong(this.props.statuses));
-            this.setBackHide();
-          } else {
-            this.props.setWrong(checkingRight(this.props.statuses));
-          }
-        });
-        promise.then(() => {
-          this.props.clearSelectedCard([]);
-          setTimeout(() => {
-            this.changeData(this.props.setStatuses, 'hide');
-          }, 1000);
-        });
+          this.props.setRight(checkingWrong(this.props.statuses));
+          this.setBackHide();
+        } else {
+          this.props.setWrong(checkingRight(this.props.statuses));
+        }
+        this.props.clearSelectedCard([]);
+        setTimeout(() => {
+          this.changeData(this.props.setStatuses, 'hide');
+        }, 1000);
       }
     }, 1);
   }
