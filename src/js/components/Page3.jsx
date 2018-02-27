@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setBack } from '../redux/actions';
@@ -17,6 +18,7 @@ const Page3 = props => (
         const newStatuses = Array(this.props.cardsList.length).fill('default');
         props.setBack(newStatuses);
       }}
+      data-tid="EndGame-retryGame"
     >Еще раз
     </Link>
   </div>
@@ -28,6 +30,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setBack,
+};
+
+Page3.propTypes = {
+  setBack: PropTypes.func.isRequired,
+  scores: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page3);

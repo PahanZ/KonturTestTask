@@ -7,6 +7,6 @@ export default () => (
   <div className="page">
     <img src={img} className="titleImg" alt="StartGame" />
     <h1>Memory Game</h1>
-    <Link to="/Page2" className="link">Начать игру</Link>
+    <Link to="/Page2" className="link" data-tid="NewGame-startGame">Начать игру</Link>
   </div>
 );

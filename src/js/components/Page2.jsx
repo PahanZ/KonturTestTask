@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Header from './Header';
-import Cards from './Cards';
+import PropTypes from 'prop-types';
+import Header from './modules/Header';
+import Cards from './modules/Cards';
 import src from '../helpers/images';
 import choiceImages from '../helpers/choiceImages';
 import checkingRight from '../helpers/checkingRights';
@@ -73,14 +74,13 @@ class Page2 extends React.Component {
     method(newStatuses);
   }
   render() {
-    console.log(this.props);
     return (
       <div className="page">
         <Header
           score={this.props.scores}
           reset={this.getData}
         />
-        <section className="cards">
+        <section className="cards" data-tid="Deck">
           <Cards
             cardsList={this.props.cardsList}
             selectedCards={this.props.selectedCards}
@@ -112,6 +112,23 @@ const mapDispatchToProps = {
   setRight,
   setWrong,
   resetScores,
+};
+
+Page2.propTypes = {
+  setSelectedCard: PropTypes.func.isRequired,
+  setRight: PropTypes.func.isRequired,
+  setWrong: PropTypes.func.isRequired,
+  clearSelectedCard: PropTypes.func.isRequired,
+  setStatusTrue: PropTypes.func.isRequired,
+  setBack: PropTypes.func.isRequired,
+  resetScores: PropTypes.func.isRequired,
+  setCardsList: PropTypes.func.isRequired,
+  setStatuses: PropTypes.func.isRequired,
+  selectedCards: PropTypes.arrayOf(PropTypes.object).isRequired,
+  cardsList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  back: PropTypes.arrayOf(PropTypes.string).isRequired,
+  scores: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page2);
