@@ -5,6 +5,9 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+$colorWhite: #FFFFFF;
+
 #app {
     background-color: #1c722f;
     height: 100vh;
@@ -30,9 +33,10 @@
                 height: 19px;
                 background-color: transparent;
                 border: none;
-                color: floralwhite;
+                color: $colorWhite;
                 text-decoration: none;
                 font-size: small;
+                cursor: pointer;
             }
         }
         .cards {
@@ -42,6 +46,7 @@
             grid-gap: 15px;
             .wrapFoCard {
                 position: relative;
+                cursor: pointer;
                 .card {
                     width: 102px;
                     transition: .5s;
@@ -68,7 +73,7 @@
         width: 144px;
         height: 42px;
         opacity: 0.85;
-        background: #FFFFFF;
+        background: $colorWhite;
         border-radius: 4px;
         font-size: 16px;
         color: #1C7430;

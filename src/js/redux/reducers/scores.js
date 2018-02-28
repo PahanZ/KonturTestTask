@@ -1,12 +1,14 @@
+import { setRight, setWrong, resetScores } from '../types';
+
 export default (state = 0, action) => {
-  if (action.type === 'setRight') {
-    return state + action.payload;
+  switch (action.type) {
+    case setRight:
+      return state + action.payload;
+    case setWrong:
+      return state - action.payload;
+    case resetScores:
+      return action.payload;
+    default:
+      return state;
   }
-  if (action.type === 'setWrong') {
-    return state - action.payload;
-  }
-  if (action.type === 'resetScores') {
-    return action.payload;
-  }
-  return state;
 };

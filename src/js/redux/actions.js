@@ -18,13 +18,8 @@ const setStatuses = data => ({
   payload: data,
 });
 
-const setStatusTrue = data => ({
-  type: 'setTrue',
-  payload: data,
-});
-
-const setStatusFalse = data => ({
-  type: 'setFalse',
+const setStatus = data => ({
+  type: 'setStatus',
   payload: data,
 });
 
@@ -52,8 +47,7 @@ export { setRight,
   setWrong,
   setCardsList,
   setStatuses,
-  setStatusTrue,
-  setStatusFalse,
+  setStatus,
   setSelectedCard,
   clearSelectedCard,
   setBack,

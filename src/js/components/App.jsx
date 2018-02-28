@@ -14,6 +14,7 @@ const App = props => (
       path="/Page2"
       render={() => (
           props.back.every(element => (element === 'hide')) && props.back.length !== 0 ? (
+
             <Redirect to="/Page3" />
           ) : (
             <Page2 />

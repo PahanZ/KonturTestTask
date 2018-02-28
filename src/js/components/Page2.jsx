@@ -11,7 +11,7 @@ import {
   setCardsList,
   setStatuses,
   setSelectedCard,
-  setStatusTrue,
+  setStatus,
   clearSelectedCard,
   setBack,
   setRight,
@@ -28,36 +28,47 @@ class Page2 extends React.Component {
     this.getData();
   }
   onSelect(number, id) {
-    this.props.setSelectedCard({ number, id });
-    setTimeout(() => {
+    const promise = new Promise((resolve) => {
+      this.props.setSelectedCard({ number, id });
+      resolve();
+    });
+    promise.then(() => {
+      const [firstCard, secondCard] = this.props.selectedCards;
+
       if (this.props.selectedCards.length === 1) {
-        this.setNewStatuses(0);
+        this.setShowStatus(0);
       }
+
       if (this.props.selectedCards.length === 2) {
-        this.setNewStatuses(1);
-        if (this.props.selectedCards[0].id === this.props.selectedCards[1].id
-          && this.props.selectedCards[0].number !== this.props.selectedCards[1].number) {
+        this.setShowStatus(1);
+
+        if (firstCard.id === secondCard.id && firstCard.number !== secondCard.number) {
           this.props.setRight(checkingWrong(this.props.statuses));
           this.setBackHide();
         } else {
           this.props.setWrong(checkingRight(this.props.statuses));
         }
+
         this.props.clearSelectedCard([]);
+
         setTimeout(() => {
           this.changeData(this.props.setStatuses, 'hide');
         }, 1000);
       }
-    }, 1);
+    });
   }
-  setNewStatuses(index) {
+  setShowStatus(index) {
     const newStatuses = this.props.statuses.slice();
-    newStatuses[this.props.selectedCards[index].number] = 'show';
-    this.props.setStatusTrue(newStatuses);
+    const statusIndex = this.props.selectedCards[index].number;
+    newStatuses[statusIndex] = 'show';
+    this.props.setStatus(newStatuses);
   }
   setBackHide() {
     const newBack = this.props.back.slice();
-    newBack[this.props.selectedCards[0].number] = 'hide';
-    newBack[this.props.selectedCards[1].number] = 'hide';
+    const firstBackIndex = this.props.selectedCards[0].number;
+    const secondBackIndex = this.props.selectedCards[1].number;
+    newBack[firstBackIndex] = 'hide';
+    newBack[secondBackIndex] = 'hide';
     this.props.setBack(newBack);
   }
   getData() {
@@ -70,7 +81,8 @@ class Page2 extends React.Component {
     }, 5000);
   }
   changeData(method, className) {
-    const newStatuses = Array(this.props.cardsList.length).fill(className);
+    const cardsListLength = this.props.cardsList.length;
+    const newStatuses = Array(cardsListLength).fill(className);
     method(newStatuses);
   }
   render() {
@@ -106,7 +118,7 @@ const mapDispatchToProps = {
   setCardsList,
   setStatuses,
   setSelectedCard,
-  setStatusTrue,
+  setStatus,
   clearSelectedCard,
   setBack,
   setRight,
@@ -119,7 +131,7 @@ Page2.propTypes = {
   setRight: PropTypes.func.isRequired,
   setWrong: PropTypes.func.isRequired,
   clearSelectedCard: PropTypes.func.isRequired,
-  setStatusTrue: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired,
   setBack: PropTypes.func.isRequired,
   resetScores: PropTypes.func.isRequired,
   setCardsList: PropTypes.func.isRequired,
