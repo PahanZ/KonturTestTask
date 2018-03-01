@@ -21,7 +21,6 @@ class Page2 extends React.Component {
   constructor(props) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
-    this.getData = this.getData.bind(this);
   }
   componentDidMount() {
     this.getData();
@@ -74,7 +73,7 @@ class Page2 extends React.Component {
     method(newStatuses);
   }
   render() {
-    console.log(this.props.statuses);
+    // console.log(this.props);
     return (
       <div className="page">
         <Header

@@ -7,7 +7,6 @@ import Page2 from './Page2';
 import Page3 from './Page3';
 
 const App = (props) => {
-  console.log(props.status);
   return (
     <Switch>
       <Route exact path="/" component={Page1} />
@@ -15,9 +14,9 @@ const App = (props) => {
         exact
         path="/Page2"
         render={() => {
-          console.log(props.status);
+          console.log(props.statuses);
           return (
-            props.status.every(element => (element === 'checked')) && props.status.length !== 0 ? (
+            props.statuses.every(element => (element === 'checked')) && props.statuses.length !== 0 ? (
               <Redirect to="/Page3" />
               ) : (
                 <Page2 />
@@ -32,11 +31,11 @@ const App = (props) => {
 
 
 const mapStateToProps = state => ({
-  status: state.statuses,
+  statuses: state.statuses,
 });
 
 App.propTypes = {
-  status: PropTypes.arrayOf(PropTypes.string).isRequired,
+  statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default withRouter(connect(mapStateToProps)(App));

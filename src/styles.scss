@@ -46,21 +46,14 @@ $colorWhite: #FFFFFF;
             grid-gap: 15px;
             .wrapFoCard {
                 position: relative;
-                background-image: url('img/back.jpg');
+                overflow: hidden;
                 height: 142px;
                 cursor: pointer;
                 .card {
                     width: 102px;
-                    transition: .5s;
                     position: relative;
                     z-index: 1;
-                }
-                .cardBack {
-                    width: 102px;
-                    height: 142px;
-                    position: absolute;
-                    left: 0;
-                    z-index: 0;
+                    height: 100%;
                 }
             }
             .default .show {

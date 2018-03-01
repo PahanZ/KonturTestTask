@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setBack } from '../redux/actions';
+import { setStatuses } from '../redux/actions';
 
 const img = require('../../img/Group 2.png');
 
 const Page3 = (props) => {
-  const resetBack = () => {
-    const cardsListLength = this.props.cardsList.length;
-    const newStatuses = Array(cardsListLength).fill('default');
-    props.setBack(newStatuses);
+  const reset = () => {
+    const [cardsList] = props.cardsList;
+    const newStatuses = Array(cardsList).fill('default');
+    props.setStatuses(newStatuses);
   };
   return (
     <div className="page">
@@ -21,7 +21,7 @@ const Page3 = (props) => {
         to="/"
         className="link"
         onClick={() => {
-          resetBack();
+          reset();
         }}
         data-tid="EndGame-retryGame"
       >Еще раз
@@ -32,15 +32,17 @@ const Page3 = (props) => {
 
 const mapStateToProps = state => ({
   scores: state.scores,
+  statuses: state.statuses,
 });
 
 const mapDispatchToProps = {
-  setBack,
+  setStatuses,
 };
 
 Page3.propTypes = {
-  setBack: PropTypes.func.isRequired,
+  setStatuses: PropTypes.func.isRequired,
   scores: PropTypes.number.isRequired,
+  cardsList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page3);
