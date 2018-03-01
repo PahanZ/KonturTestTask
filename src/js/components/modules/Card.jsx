@@ -1,10 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const back = require('../../../img/back.jpg');
-
-export default props => (
-  <div className="wrapFoCard">
-    {/* eslint-disable */}
+const Card = (props) => {
+  const classes = () => {
+    if (props.status === 'checked') {
+      return 'wrapFoCard checked';
+    }
+    return 'wrapFoCard show';
+  };
+  return (
+    <div className={classes()}>
+      {/* eslint-disable */}
       <img
         index={props.index}
         id={props.id}
@@ -16,8 +22,17 @@ export default props => (
         }}
       data-tid="Card"
       />
-    <img src={back} className={'cardBack' + ' ' + props.back} alt="back" data-tid="Card-flipped"/>
       {/* eslint-enable */}
-  </div>
-);
+    </div>
+  );
+};
 
+Card.defaultProps = {
+  status: undefined,
+};
+
+Card.propTypes = {
+  status: PropTypes.string,
+};
+
+export default Card;

@@ -12,7 +12,6 @@ export default class Cards extends React.Component {
         status={this.props.statuses[i]}
         src={element.src}
         onSelect={this.props.onSelect}
-        back={this.props.back[i]}
       />
     ));
   }
@@ -22,5 +21,4 @@ Cards.propTypes = {
   cardsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
   onSelect: PropTypes.func.isRequired,
-  back: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

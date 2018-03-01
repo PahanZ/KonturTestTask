@@ -13,7 +13,6 @@ import {
   setSelectedCard,
   setStatus,
   clearSelectedCard,
-  setBack,
   setRight,
   setWrong,
   resetScores } from '../redux/actions';
@@ -28,55 +27,44 @@ class Page2 extends React.Component {
     this.getData();
   }
   onSelect(number, id) {
-    const promise = new Promise((resolve) => {
-      this.props.setSelectedCard({ number, id });
-      resolve();
-    });
-    promise.then(() => {
-      const [firstCard, secondCard] = this.props.selectedCards;
+    this.props.setSelectedCard({ number, id });
+    this.setShowStatus(number);
 
-      if (this.props.selectedCards.length === 1) {
-        this.setShowStatus(0);
-      }
+    if (this.props.selectedCards.length === 1) {
+      const selectedCardsFirstIndex = this.props.selectedCards[0];
 
-      if (this.props.selectedCards.length === 2) {
-        this.setShowStatus(1);
-
-        if (firstCard.id === secondCard.id && firstCard.number !== secondCard.number) {
-          this.props.setRight(checkingWrong(this.props.statuses));
-          this.setBackHide();
-        } else {
-          this.props.setWrong(checkingRight(this.props.statuses));
-        }
-
-        this.props.clearSelectedCard([]);
-
+      if (selectedCardsFirstIndex.id === id && selectedCardsFirstIndex.number !== number) {
+        this.props.setRight(checkingWrong(this.props.statuses));
         setTimeout(() => {
-          this.changeData(this.props.setStatuses, 'hide');
+          this.setStatuses(selectedCardsFirstIndex.number, number, 'checked');
+        }, 1000);
+      } else {
+        this.props.setWrong(checkingRight(this.props.statuses));
+        setTimeout(() => {
+          this.setStatuses(selectedCardsFirstIndex.number, number, 'hide');
         }, 1000);
       }
-    });
+      setTimeout(() => {
+        this.props.clearSelectedCard([]);
+      }, 1000);
+    }
   }
   setShowStatus(index) {
-    const newStatuses = this.props.statuses.slice();
-    const statusIndex = this.props.selectedCards[index].number;
-    newStatuses[statusIndex] = 'show';
+    const newStatuses = this.props.statuses;
+    newStatuses[index] = 'show';
     this.props.setStatus(newStatuses);
   }
-  setBackHide() {
-    const newBack = this.props.back.slice();
-    const firstBackIndex = this.props.selectedCards[0].number;
-    const secondBackIndex = this.props.selectedCards[1].number;
-    newBack[firstBackIndex] = 'hide';
-    newBack[secondBackIndex] = 'hide';
-    this.props.setBack(newBack);
+  setStatuses(firstCard, secondCard, className) {
+    const newStatuses = this.props.statuses;
+    newStatuses[firstCard] = className;
+    newStatuses[secondCard] = className;
+    this.props.setStatus(newStatuses);
   }
   getData() {
     this.props.resetScores(0);
     this.props.setCardsList(choiceImages(src));
     this.changeData(this.props.setStatuses, 'default');
     setTimeout(() => {
-      this.changeData(this.props.setBack, 'show');
       this.changeData(this.props.setStatuses, 'hide');
     }, 5000);
   }
@@ -86,6 +74,7 @@ class Page2 extends React.Component {
     method(newStatuses);
   }
   render() {
+    console.log(this.props.statuses);
     return (
       <div className="page">
         <Header
@@ -98,7 +87,6 @@ class Page2 extends React.Component {
             selectedCards={this.props.selectedCards}
             statuses={this.props.statuses}
             onSelect={this.onSelect}
-            back={this.props.back}
           />
         </section>
       </div>
@@ -111,7 +99,6 @@ const mapStateToProps = state => ({
   scores: state.scores,
   statuses: state.statuses,
   selectedCards: state.selectedCards,
-  back: state.setBack,
 });
 
 const mapDispatchToProps = {
@@ -120,7 +107,6 @@ const mapDispatchToProps = {
   setSelectedCard,
   setStatus,
   clearSelectedCard,
-  setBack,
   setRight,
   setWrong,
   resetScores,
@@ -132,14 +118,12 @@ Page2.propTypes = {
   setWrong: PropTypes.func.isRequired,
   clearSelectedCard: PropTypes.func.isRequired,
   setStatus: PropTypes.func.isRequired,
-  setBack: PropTypes.func.isRequired,
   resetScores: PropTypes.func.isRequired,
   setCardsList: PropTypes.func.isRequired,
   setStatuses: PropTypes.func.isRequired,
   selectedCards: PropTypes.arrayOf(PropTypes.object).isRequired,
   cardsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
-  back: PropTypes.arrayOf(PropTypes.string).isRequired,
   scores: PropTypes.number.isRequired,
 };
 

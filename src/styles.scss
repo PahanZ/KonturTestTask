@@ -46,6 +46,8 @@ $colorWhite: #FFFFFF;
             grid-gap: 15px;
             .wrapFoCard {
                 position: relative;
+                background-image: url('img/back.jpg');
+                height: 142px;
                 cursor: pointer;
                 .card {
                     width: 102px;
