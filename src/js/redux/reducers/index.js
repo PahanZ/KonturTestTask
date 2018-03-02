@@ -3,8 +3,8 @@ import scores from './scores';
 import cards from './cards';
 import statuses from './statuses';
 import selectedCards from './selectedCards';
-import setBack from './setBack';
+import checkFoRouter from './checkFoRouter';
 
 export default combineReducers({
-  scores, cards, statuses, selectedCards, setBack,
+  scores, cards, statuses, selectedCards, checkFoRouter,
 });

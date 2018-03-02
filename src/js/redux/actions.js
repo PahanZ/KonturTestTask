@@ -43,6 +43,11 @@ const resetScores = data => ({
   payload: data,
 });
 
+const checkFoRouter = data => ({
+  type: 'checkFoRouter',
+  payload: data,
+});
+
 export { setRight,
   setWrong,
   setCardsList,
@@ -52,4 +57,5 @@ export { setRight,
   clearSelectedCard,
   setBack,
   resetScores,
+  checkFoRouter,
 };

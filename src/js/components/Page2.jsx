@@ -15,12 +15,14 @@ import {
   clearSelectedCard,
   setRight,
   setWrong,
-  resetScores } from '../redux/actions';
+  resetScores,
+  checkFoRouter } from '../redux/actions';
 
 class Page2 extends React.Component {
   constructor(props) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
+    this.getData = this.getData.bind(this);
   }
   componentDidMount() {
     this.getData();
@@ -30,22 +32,24 @@ class Page2 extends React.Component {
     this.setShowStatus(number);
 
     if (this.props.selectedCards.length === 1) {
-      const selectedCardsFirstIndex = this.props.selectedCards[0];
+      const selectedCardsFirst = this.props.selectedCards[0];
 
-      if (selectedCardsFirstIndex.id === id && selectedCardsFirstIndex.number !== number) {
+      if (selectedCardsFirst.id === id && selectedCardsFirst.number !== number) {
         this.props.setRight(checkingWrong(this.props.statuses));
         setTimeout(() => {
-          this.setStatuses(selectedCardsFirstIndex.number, number, 'checked');
-        }, 1000);
+          this.setStatuses(selectedCardsFirst.number, number, 'checked');
+        }, 500);
       } else {
         this.props.setWrong(checkingRight(this.props.statuses));
         setTimeout(() => {
-          this.setStatuses(selectedCardsFirstIndex.number, number, 'hide');
-        }, 1000);
+          this.setStatuses(selectedCardsFirst.number, number, 'hide');
+        }, 500);
       }
       setTimeout(() => {
+        const conditionForRouter = this.props.statuses.every(element => (element === 'checked')) && this.props.statuses.length !== 0;
+        this.props.checkFoRouter(conditionForRouter);
         this.props.clearSelectedCard([]);
-      }, 1000);
+      }, 500);
     }
   }
   setShowStatus(index) {
@@ -73,7 +77,6 @@ class Page2 extends React.Component {
     method(newStatuses);
   }
   render() {
-    // console.log(this.props);
     return (
       <div className="page">
         <Header
@@ -98,6 +101,7 @@ const mapStateToProps = state => ({
   scores: state.scores,
   statuses: state.statuses,
   selectedCards: state.selectedCards,
+  check: state.checkFoRouter,
 });
 
 const mapDispatchToProps = {
@@ -109,6 +113,7 @@ const mapDispatchToProps = {
   setRight,
   setWrong,
   resetScores,
+  checkFoRouter,
 };
 
 Page2.propTypes = {
@@ -124,6 +129,7 @@ Page2.propTypes = {
   cardsList: PropTypes.arrayOf(PropTypes.object).isRequired,
   statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
   scores: PropTypes.number.isRequired,
+  checkFoRouter: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Page2);

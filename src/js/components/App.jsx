@@ -6,36 +6,32 @@ import Page1 from './Page1';
 import Page2 from './Page2';
 import Page3 from './Page3';
 
-const App = (props) => {
-  return (
-    <Switch>
-      <Route exact path="/" component={Page1} />
-      <Route
-        exact
-        path="/Page2"
-        render={() => {
-          console.log(props.statuses);
-          return (
-            props.statuses.every(element => (element === 'checked')) && props.statuses.length !== 0 ? (
-              <Redirect to="/Page3" />
-              ) : (
-                <Page2 />
-              )
-          );
-        }}
-      />
-      <Route path="/Page3" component={Page3} />
-    </Switch>
-  );
-};
+const App = props => (
+  <Switch>
+    <Route exact path="/" component={Page1} />
+    <Route
+      exact
+      path="/Page2"
+      render={() => (
+          props.check ? (
+            <Redirect to="/Page3" />
+            ) : (
+              <Page2 />
+            )
+        )
+      }
+    />
+    <Route path="/Page3" component={Page3} />
+  </Switch>
+);
 
 
 const mapStateToProps = state => ({
-  statuses: state.statuses,
+  check: state.checkFoRouter,
 });
 
 App.propTypes = {
-  statuses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  check: PropTypes.bool.isRequired,
 };
 
 export default withRouter(connect(mapStateToProps)(App));

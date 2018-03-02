@@ -5,7 +5,7 @@ const setStatuses = 'setStatuses';
 const setStatus = 'setStatus';
 const selectedCard = 'selectedCard';
 const clearSelectedCard = 'clearSelectedCard';
-const setBack = 'setBack';
+const checkFoRouter = 'checkFoRouter';
 const resetScores = 'resetScores';
 
 export {
@@ -16,5 +16,5 @@ export {
   setStatus,
   selectedCard,
   clearSelectedCard,
-  setBack,
+  checkFoRouter,
   resetScores };
