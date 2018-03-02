@@ -19,6 +19,7 @@ const Card = (props) => {
           props.onSelect(props.index, props.id);
         }}
       data-tid="Card"
+      data-tid="Card-flipped"
       />
       {/* eslint-enable */}
     </div>

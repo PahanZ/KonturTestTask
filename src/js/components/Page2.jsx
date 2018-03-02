@@ -38,18 +38,18 @@ class Page2 extends React.Component {
         this.props.setRight(checkingWrong(this.props.statuses));
         setTimeout(() => {
           this.setStatuses(selectedCardsFirst.number, number, 'checked');
-        }, 500);
+        }, 1000);
       } else {
         this.props.setWrong(checkingRight(this.props.statuses));
         setTimeout(() => {
           this.setStatuses(selectedCardsFirst.number, number, 'hide');
-        }, 500);
+        }, 1000);
       }
       setTimeout(() => {
         const conditionForRouter = this.props.statuses.every(element => (element === 'checked')) && this.props.statuses.length !== 0;
         this.props.checkFoRouter(conditionForRouter);
         this.props.clearSelectedCard([]);
-      }, 500);
+      }, 1000);
     }
   }
   setShowStatus(index) {
