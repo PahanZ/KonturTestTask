@@ -56,32 +56,32 @@ $colorWhite: #FFFFFF;
                     height: 100%;
                     
                 }
-            }
-            .default .show {
-                opacity: 1;
-            }
-            .hide {
-                opacity: 0;
-            }
-            .checked {
-                display: none;
+                .hide {
+                    opacity: 0;
+                }
+                .default .show {
+                    opacity: 1;
+                }
+                .checked {
+                    display: none;
+                }
             }
             .disabled {
                 pointer-events: none;
             }
         }
-    }
-    .link {
-        width: 144px;
-        height: 42px;
-        opacity: 0.85;
-        background: $colorWhite;
-        border-radius: 4px;
-        font-size: 16px;
-        color: #1C7430;
-        letter-spacing: 0;
-        text-decoration: none;
-        text-align: center;
-        padding: 10px 20px;
+        .link {
+            width: 144px;
+            height: 42px;
+            opacity: 0.85;
+            background: $colorWhite;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #1C7430;
+            letter-spacing: 0;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px 20px;
+        }
     }
 }
