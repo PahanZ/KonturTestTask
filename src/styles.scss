@@ -54,6 +54,7 @@ $colorWhite: #FFFFFF;
                     position: relative;
                     z-index: 1;
                     height: 100%;
+                    
                 }
             }
             .default .show {
@@ -64,6 +65,9 @@ $colorWhite: #FFFFFF;
             }
             .checked {
                 display: none;
+            }
+            .disabled {
+                pointer-events: none;
             }
         }
     }

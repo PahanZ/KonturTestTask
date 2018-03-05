@@ -5,17 +5,18 @@ const back = require('../../../img/back.jpg');
 
 const Card = (props) => {
   const paths = () => (props.status === 'show' || props.status === 'default' || props.status === undefined ? props.src : back);
-  const classes = () => (props.status === 'checked' ? 'card checked' : 'card');
+  const classesFoImg = () => (props.status === 'checked' ? 'card checked' : 'card');
+  const classesFoWrap = () => (props.status === 'hide disabled' || props.status === 'default' || props.status === undefined ? 'wrapFoCard disabled' : 'wrapFoCard');
   return (
-    <div className="wrapFoCard">
+    <div className={classesFoWrap()}>
       {/* eslint-disable */}
       <img
         index={props.index}
         id={props.id}
         src={paths()}
-        className={classes()}
+        className={classesFoImg()}
         alt="card"
-        onClick={() => {            
+        onClick={() => {
           props.onSelect(props.index, props.id);
         }}
       data-tid="Card"

@@ -5,8 +5,7 @@ import Header from './modules/Header';
 import Cards from './modules/Cards';
 import src from '../helpers/images';
 import choiceImages from '../helpers/choiceImages';
-import checkingRight from '../helpers/checkingRights';
-import checkingWrong from '../helpers/checkingWrong';
+import checkingStatuses from '../helpers/checkingStatuses';
 import {
   setCardsList,
   setStatuses,
@@ -33,21 +32,16 @@ class Page2 extends React.Component {
 
     if (this.props.selectedCards.length === 1) {
       const selectedCardsFirst = this.props.selectedCards[0];
-
+      this.restrictCardSelect('hide', 'hide disabled');
       if (selectedCardsFirst.id === id && selectedCardsFirst.number !== number) {
-        this.props.setRight(checkingWrong(this.props.statuses));
-        setTimeout(() => {
-          this.setStatuses(selectedCardsFirst.number, number, 'checked');
-        }, 1000);
+        this.scoring(this.props.setRight, 'hide', 'checked', selectedCardsFirst.number, number);
       } else {
-        this.props.setWrong(checkingRight(this.props.statuses));
-        setTimeout(() => {
-          this.setStatuses(selectedCardsFirst.number, number, 'hide');
-        }, 1000);
+        this.scoring(this.props.setWrong, 'show', 'hide', selectedCardsFirst.number, number);
       }
       setTimeout(() => {
-        const conditionForRouter = this.props.statuses.every(element => (element === 'checked')) && this.props.statuses.length !== 0;
+        const conditionForRouter = this.props.statuses.every(element => (element === 'checked'));
         this.props.checkFoRouter(conditionForRouter);
+        this.restrictCardSelect('hide disabled', 'hide');
         this.props.clearSelectedCard([]);
       }, 1000);
     }
@@ -70,6 +64,18 @@ class Page2 extends React.Component {
     setTimeout(() => {
       this.changeData(this.props.setStatuses, 'hide');
     }, 5000);
+  }
+  restrictCardSelect(gettingStatus, setingStatus) {
+    const newStatuses = this.props.statuses.map(element => (
+      element === gettingStatus ? setingStatus : element
+    ));
+    this.props.setStatus(newStatuses);
+  }
+  scoring(method, searchingClass, settingClass, element, number) {
+    method(checkingStatuses(this.props.statuses, searchingClass));
+    setTimeout(() => {
+      this.setStatuses(element, number, settingClass);
+    }, 1000);
   }
   changeData(method, className) {
     const cardsListLength = this.props.cardsList.length;
