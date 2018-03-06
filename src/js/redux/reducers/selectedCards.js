@@ -1,11 +1,11 @@
 import { selectedCard, clearSelectedCard } from '../types';
 
 export default (state = [], action) => {
-  if (action.type === selectedCard) {
-    return [...state, action.payload];
+  switch (action.type) {
+    case selectedCard:
+      return [...state, action.payload];
+    case clearSelectedCard:
+      return action.payload;
+    default: return state;
   }
-  if (action.type === clearSelectedCard) {
-    return action.payload;
-  }
-  return state;
 };
