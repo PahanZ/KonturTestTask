@@ -5,7 +5,6 @@ import Header from './modules/Header';
 import Cards from './modules/Cards';
 import src from '../helpers/images';
 import choiceImages from '../helpers/choiceImages';
-import checkingStatuses from '../helpers/checkingStatuses';
 import {
   setCardsList,
   setStatuses,
@@ -21,10 +20,10 @@ class Page2 extends React.Component {
   constructor(props) {
     super(props);
     this.onSelect = this.onSelect.bind(this);
-    this.getData = this.getData.bind(this);
+    this.getDefaultImagesAndStatuses = this.getDefaultImagesAndStatuses.bind(this);
   }
   componentDidMount() {
-    this.getData();
+    this.getDefaultImagesAndStatuses();
   }
   onSelect(number, id) {
     this.props.setSelectedCard({ number, id });
@@ -33,10 +32,11 @@ class Page2 extends React.Component {
     if (this.props.selectedCards.length === 1) {
       const selectedCardsFirst = this.props.selectedCards[0];
       this.restrictCardSelect('hide', 'hide disabled');
+
       if (selectedCardsFirst.id === id && selectedCardsFirst.number !== number) {
-        this.scoring(this.props.setRight, 'hide', 'checked', selectedCardsFirst.number, number);
+        this.scoringAndSetStatuses(selectedCardsFirst.number, number, 'checked', this.props.setRight, /(hide)/gi);
       } else {
-        this.scoring(this.props.setWrong, 'show', 'hide', selectedCardsFirst.number, number);
+        this.scoringAndSetStatuses(selectedCardsFirst.number, number, 'hide', this.props.setWrong, /(checked)/gi);
       }
       setTimeout(() => {
         const conditionForRouter = this.props.statuses.every(element => (element === 'checked'));
@@ -57,12 +57,12 @@ class Page2 extends React.Component {
     newStatuses[secondCard] = className;
     this.props.setStatus(newStatuses);
   }
-  getData() {
+  getDefaultImagesAndStatuses() {
     this.props.resetScores(0);
     this.props.setCardsList(choiceImages(src));
-    this.changeData(this.props.setStatuses, 'default');
+    this.changeStatuses(this.props.setStatuses, 'default');
     setTimeout(() => {
-      this.changeData(this.props.setStatuses, 'hide');
+      this.changeStatuses(this.props.setStatuses, 'hide');
     }, 5000);
   }
   restrictCardSelect(gettingStatus, setingStatus) {
@@ -71,13 +71,16 @@ class Page2 extends React.Component {
     ));
     this.props.setStatus(newStatuses);
   }
-  scoring(method, searchingClass, settingClass, element, number) {
-    method(checkingStatuses(this.props.statuses, searchingClass));
+  scoringAndSetStatuses(firstCard, secondCard, className, method, re) {
+    const str = this.props.statuses.join(',');
     setTimeout(() => {
-      this.setStatuses(element, number, settingClass);
+      this.setStatuses(firstCard, secondCard, className);
+      if (str.match(re) !== null) {
+        method(str.match(re).length * 42);
+      }
     }, 1000);
   }
-  changeData(method, className) {
+  changeStatuses(method, className) {
     const cardsListLength = this.props.cardsList.length;
     const newStatuses = Array(cardsListLength).fill(className);
     method(newStatuses);
@@ -87,7 +90,7 @@ class Page2 extends React.Component {
       <div className="page">
         <Header
           score={this.props.scores}
-          reset={this.getData}
+          reset={this.getDefaultImagesAndStatuses}
         />
         <section className="cards" data-tid="Deck">
           <Cards
